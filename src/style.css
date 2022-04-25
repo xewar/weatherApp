@@ -1,3 +1,65 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+:root {
+  --risoBlue: rgb(61, 85, 136);
+  --yellow: rgb(255, 232, 0);
+  --pink: rgb(255, 72, 176);
+  --brightRed: rgb(241, 80, 96);
+  --teal: rgb(0, 131, 138);
+  --background: rgba(255, 72, 176, 25%);
+  --blueAlter: 61, 85, 136;
+  --pinkAlter: 255, 72, 176;
+  --yellowAlter: 255, 232, 0;
+}
+html {
+  font-family: 'Space Mono', monospace;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(var(--blueAlter), 0.95),
+    rgba(var(--pinkAlter), 0.6),
+    rgba(var(--yellowAlter), 0.6)
+  );
+}
 body {
-  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+  padding: 1em;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+}
+
+.introText {
+  font-size: 1.5em;
+}
+div {
+  padding: 1em 0;
+}
+input {
+  background-color: transparent;
+  font-size: 3em;
+  border: white;
+  color: white;
+  width: 450px;
+}
+::placeholder {
+  color: white;
+}
+.todaysTemperature {
+  font-size: 4em;
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 550px) {
+  body {
+    display: grid;
+    grid-template-columns: max-content repeat(5, 1fr);
+    grid-template-rows: max-content max-content;
+    width: 100vw;
+  }
+  .today {
+    grid-column: 1;
+    align-items: top;
+  }
 }
