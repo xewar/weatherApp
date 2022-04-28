@@ -10,21 +10,21 @@
   --blueAlter: 61, 85, 136;
   --pinkAlter: 255, 72, 176;
   --yellowAlter: 255, 232, 0;
+  --tealAlter: 0, 131, 138;
+  --redAlter: 241, 80, 96;
 }
 html {
   font-family: 'Space Mono', monospace;
-  background-image: linear-gradient(
-    to bottom right,
-    rgba(var(--blueAlter), 0.95),
-    rgba(var(--pinkAlter), 0.6),
-    rgba(var(--yellowAlter), 0.6)
-  );
 }
 body {
-  display: flex;
-  flex-direction: column;
-  margin: 2em;
-  padding: 1em;
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--tealAlter), 0.6) 0,
+    rgba(var(--redAlter), 0.3) 75%,
+    rgba(var(--yellowAlter), 0.4) 98%
+  );
+  /* display: flex;
+  flex-direction: column; */
   color: white;
   width: 100vw;
   height: 100vh;
@@ -39,27 +39,86 @@ div {
 input {
   background-color: transparent;
   font-size: 3em;
-  border: white;
-  color: white;
+  border: none;
   width: 450px;
 }
-::placeholder {
-  color: white;
-}
-.todaysTemperature {
-  font-size: 4em;
+::placeholder,
+input {
+  color: rgba(var(--redAlter), 0.4);
 }
 
 /* Desktop Styles */
 @media only screen and (min-width: 550px) {
   body {
     display: grid;
-    grid-template-columns: max-content repeat(5, 1fr);
     grid-template-rows: max-content max-content;
     width: 100vw;
+    background-image: none;
   }
-  .today {
+  .top {
+    grid-column: 1/-1;
+    grid-row: 1;
+    height: 72vh;
+    width: 100vw;
+    background-image: linear-gradient(
+      to right,
+      rgba(var(--tealAlter), 0.4),
+      rgba(var(--tealAlter), 0.4) 30%,
+      rgba(var(--redAlter), 0.6) 65%,
+      rgba(var(--yellowAlter), 0.3) 80%,
+      rgba(var(--redAlter), 0.2) 85%,
+      rgba(var(--tealAlter), 0.4) 95%
+    );
+  }
+  .bottom {
+    height: 28vh;
+    grid-row: 2;
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: max-content 50px 1fr 2fr 1fr;
+    grid-template-rows: 1max-content 1fr;
+    background-color: rgba(var(--tealAlter), 0.4);
+    background-blend-mode: multiply;
+    position: relative;
+  }
+  .sunrise,
+  .moonrise,
+  .sunriseTime,
+  .sunsetTime {
+    grid-row: 1;
+  }
+  .sunrise,
+  .moonrise {
+    grid-row: 1;
+    height: 80px;
+    width: 110px;
+    top: -60px;
+    height: 180px;
+    width: 210px;
+    top: -110px;
+    border-radius: 100% 100% 0 0;
+    border-radius: 100%;
+    opacity: 45%;
+    background: rgba(var(--yellowAlter), 0.2);
+    /* background: rgba(255, 255, 255, 0.3); */
+    position: absolute;
+  }
+  .sunrise {
+    grid-column: 3;
+  }
+  .sunriseTime,
+  .sunsetTime {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+  }
+  .moonrise {
+    grid-column: 5;
+  }
+  form {
+    grid-row: 2;
     grid-column: 1;
-    align-items: top;
+    opacity: 70%;
+    align-self: start;
   }
 }
