@@ -57,6 +57,9 @@ button {
   border-radius: 4%;
   color: white;
 }
+.buttons {
+}
+
 .day {
   /* background-color: rgba(255, 72, 176, 10%); */
   position: relative;

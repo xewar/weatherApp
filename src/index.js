@@ -5,6 +5,76 @@ console.log('hello');
 console.log('bye');
 let placeName = 'London';
 
+//moon phases
+// function load_moon_phases(obj, callback) {
+//   var gets = [];
+//   for (var i in obj) {
+//     gets.push(i + '=' + encodeURIComponent(obj[i]));
+//   }
+//   gets.push('LDZ=' + new Date(obj.year, obj.month - 1, 1) / 1000);
+//   var xmlhttp = new XMLHttpRequest();
+//   var url = 'https://www.icalendar37.net/lunar/api/?' + gets.join('&');
+//   xmlhttp.onreadystatechange = function () {
+//     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+//       callback(JSON.parse(xmlhttp.responseText));
+//     }
+//   };
+//   xmlhttp.open('GET', url, true);
+//   xmlhttp.send();
+// }
+// let getMoon = () => {
+//   let days = []
+//   var d = new Date().getDate(); //find day
+//   var m = document.querySelectorAll('#contain_moon div');
+//   var a = new XMLHttpRequest();
+//   var url =
+//     'https://www.icalendar37.net/lunar/api/?lang=en&month=' +
+//     (new Date().getMonth() + 1) +
+//     '&year=' +
+//     new Date().getFullYear() +
+//     '&size=60&shadeColor=rgba(255,255,255,0)&lightColor=rgba(255, 72, 176, .1)&LDZ=' +
+//     new Date(new Date().getFullYear(), new Date().getMonth(), 1) / 1000 +
+//     '';
+//   // m[1].style.height = '30px';
+//   a.onreadystatechange = function () {
+//     if (a.readyState == 4 && a.status == 200) {
+//       var b = JSON.parse(a.responseText);
+//       m[1].innerHTML = b.phase[d].svg;
+//       if (typeof moon_widget_loaded == 'function') moon_widget_loaded(b);
+//     }
+//   };
+//   a.open('GET', url, true);
+//   a.send();
+// };
+let today = new Date();
+let tomorrow = addDays(today, 1);
+console.log(today, tomorrow);
+console.log(today.getDate());
+(function () {
+  var d = new Date().getDate();
+  var m = document.querySelectorAll('#contain_moon div');
+  var a = new XMLHttpRequest();
+  var url =
+    'https://www.icalendar37.net/lunar/api/?lang=en&month=' +
+    (new Date().getMonth() + 1) +
+    '&year=' +
+    new Date().getFullYear() +
+    '&size=65&shadeColor=rgba(255,255,255,0)&lightColor=rgba(255, 72, 176, .1)&LDZ=' +
+    new Date(new Date().getFullYear(), new Date().getMonth(), 1) / 1000 +
+    '';
+  m[1].style.height = '30px';
+  a.onreadystatechange = function () {
+    if (a.readyState == 4 && a.status == 200) {
+      var b = JSON.parse(a.responseText);
+      console.log(b);
+      m[1].innerHTML = b.phase[d].svg;
+      if (typeof moon_widget_loaded == 'function') moon_widget_loaded(b);
+    }
+  };
+  a.open('GET', url, true);
+  a.send();
+})();
+
 let getLatLon = async placeName => {};
 let lat = 40.7128;
 let lon = -74.006;
