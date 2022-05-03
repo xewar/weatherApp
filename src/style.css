@@ -56,18 +56,26 @@ button {
   width: max-content;
   border-radius: 4%;
   color: white;
+  z-index: 2;
 }
 .buttons {
+  z-index: 2;
 }
-
 .day {
   /* background-color: rgba(255, 72, 176, 10%); */
   position: relative;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 2em;
+  height: 80px;
+  align-items: center;
 }
 .textCircle {
-  position: absolute;
+  margin-top: 5px;
+  align-items: center;
+  /* position: absolute;
   left: 90px;
-  top: 0;
+  top: 0; */
 }
 .backgroundCircle {
   position: absolute;
@@ -84,13 +92,24 @@ button {
     width: 100vw;
     background-image: none;
   }
+  .left {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 1em;
+    justify-content: space-between;
+  }
+  .containMoon {
+    /* background-color: rgba(var(--tealAlter), 0.1); */
+    height: 60px;
+    width: 60px;
+  }
   .top {
     grid-column: 1/-1;
     grid-row: 1;
     height: 72vh;
     width: 100vw;
-    display: grid;
-    grid-template-rows: max-content 1fr;
     /* padding-left: 1em; */
 
     background-image: linear-gradient(
