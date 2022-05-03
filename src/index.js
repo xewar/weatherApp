@@ -2,8 +2,25 @@ import './style.css';
 import { format, addDays, compareAsc } from 'date-fns';
 
 //moon phases
-
-let addMoonToDOM = (moonPhase, date, index) => {
+let loadMoonPhases = async (moonObj, date) => {
+  //retrieves data from icalendar37.net
+  var gets = [];
+  for (var i in moonObj) {
+    gets.push(i + '=' + moonObj[i]);
+  }
+  gets.push('LDZ=' + new Date(moonObj.year, moonObj.month - 1, 1) / 1000);
+  try {
+    let response = await fetch(
+      'https://www.icalendar37.net/lunar/api/?' + gets.join('&'),
+      { mode: 'cors' }
+    );
+    let responseJSON = await response.json();
+    return responseJSON.phase[date.getDay() + 1].svg;
+  } catch (error) {
+    console.log(error);
+  }
+};
+let addMoonToDOM = (moonPhase, index) => {
   let dayDiv = document.getElementById(`day${index}`);
   let containMoon = dayDiv.children[0];
   containMoon.innerHTML = moonPhase;
@@ -21,31 +38,13 @@ let renderMoons = () => {
       shadeColor: 'rgba(255,255,255,0)', //transparent
       texturize: false,
     };
-    loadMoonPhases(configMoon, date, i); //loads the phase for that date and adds it to the DOM in its callback
+    //loads the phase for that date and adds it to the DOM
+    loadMoonPhases(configMoon, date, i).then(moonPhase =>
+      addMoonToDOM(moonPhase, i)
+    );
   }
 };
 renderMoons();
-
-function loadMoonPhases(moonObj, date, index) {
-  console.log('date is:', date);
-  var gets = [];
-  for (var i in moonObj) {
-    gets.push(i + '=' + moonObj[i]);
-  }
-  gets.push('LDZ=' + new Date(moonObj.year, moonObj.month - 1, 1) / 1000);
-  var xmlhttp = new XMLHttpRequest();
-  var url = 'https://www.icalendar37.net/lunar/api/?' + gets.join('&');
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      let allPhases = JSON.parse(xmlhttp.responseText);
-      addMoonToDOM(allPhases.phase[date.getDay() + 1].svg, date, index);
-    }
-  };
-  xmlhttp.open('GET', url, true);
-  xmlhttp.send();
-}
-
-// load_moon_phases(configMoon, findPhase);
 
 // let getLatLon = async placeName => {};
 // let lat = 40.7128;
