@@ -14,8 +14,9 @@ _Sources_
 Weather Data: [Open Weather](https://openweathermap.org/)
 Phases of the Moon: [WDisseny](http://www.wdisseny.com/)
 
-_Future updates_
+_Potential future updates_
 
 - As you mouse over days show more information about the weather (humidity, uvi, etc.)
 - Move the sunrise and sunset to correspond to the length of the day
-- As you hover over the days, change the sunrise and sunset times and move the suns
+- As you hover over the days, change the sunrise and sunset times and move the suns in the desktop + tablet version
+- Add functionality to deal with mistyped or not found place names
