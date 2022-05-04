@@ -7,6 +7,15 @@ renderMoons();
 
 let form = document.querySelector('form');
 
+//Calls the functions to find weather from a location
+let populateWeather = e => {
+  e.preventDefault();
+  let placeName = form.querySelector('input').value;
+  getLatLon(placeName)
+    .then(geoData => getWeatherData(geoData))
+    .then(weatherData => processWeatherData(weatherData));
+};
+
 //Finds the lat/lon from the user input using the geocoding API
 let getLatLon = async placeName => {
   try {
@@ -21,19 +30,11 @@ let getLatLon = async placeName => {
     console.log(error);
   }
 };
-let populateWeather = e => {
-  e.preventDefault();
-  let placeName = form.querySelector('input').value;
-  getLatLon(placeName)
-    .then(geoData => getWeatherData(geoData))
-    .then(weatherData => processWeatherData(weatherData));
-};
-form.addEventListener('submit', e => populateWeather(e));
 
+//Get weather using OpenWeather's One Call API 1.0 - Current weather plus daily forecast
 let getWeatherData = async geoData => {
   let lat = geoData[0]['lat'];
   let lon = geoData[0]['lon'];
-  //One Call API 1.0 - Current weather plus daily forecast
   try {
     let exclude = 'minutely,hourly,alerts';
     let response = await fetch(
@@ -47,19 +48,14 @@ let getWeatherData = async geoData => {
     console.log(error);
   }
 };
-let todayDiv = document.getElementById('day0');
-let tomorrowDiv = document.getElementById('day1');
-let sunriseTime = document.querySelector('.sunriseTime');
-let sunsetTime = document.querySelector('.sunsetTime');
-
-let temperatureConversion = (temp, unit) => {};
 
 let processWeatherData = weatherData => {
-  console.log(weatherData);
   let todayData = weatherData['current'];
   let forecast = weatherData['daily'];
 
   //add sunrise and sunset times
+  let sunriseTime = document.querySelector('.sunriseTime');
+  let sunsetTime = document.querySelector('.sunsetTime');
   let sunrise = format(new Date(todayData['sunrise'] * 1000), 'HH:mm');
   let sunset = format(new Date(todayData['sunset'] * 1000), 'HH:mm');
   sunriseTime.textContent = sunrise;
@@ -73,11 +69,33 @@ let processWeatherData = weatherData => {
     let description = forecast[i]['weather'][0]['description'];
     let dayDiv = document.getElementById(`day${i}`);
     dayDiv.querySelector('.date').textContent = date;
-    dayDiv.querySelector('.temperature').textContent = temp;
+    dayDiv.querySelector('.temperature').textContent = temp + '°';
     dayDiv.querySelector('.description').textContent = description;
   }
 };
+let fahrenheit = 1;
+let temperatureConversion = () => {
+  let convertTemperatures = temperature => {
+    let temp = temperature.textContent;
+    temp = +temp.slice(0, temp.length - 1);
+    if (fahrenheit === 1) {
+      temp = Math.round((temp - 32) * (5 / 9), 0);
+    } else {
+      temp = Math.round(temp * (9 / 5) + 32, 0);
+    }
+    temperature.textContent = temp + '°';
+  };
+  let temps = document.querySelectorAll('.temperature');
+  temps = [...temps]; //convert to an array
+  temps.forEach(temperature => convertTemperatures(temperature));
+  fahrenheit === 1 ? (fahrenheit = 0) : (fahrenheit = 1);
+};
 
+let temperatureConversionButton = document.querySelector('button');
+temperatureConversionButton.addEventListener('click', temperatureConversion);
+form.addEventListener('submit', e => populateWeather(e));
+
+//populating the page with data from NY upon page load
 getLatLon('New York')
   .then(geoData => getWeatherData(geoData))
   .then(weatherData => processWeatherData(weatherData));
