@@ -16,4 +16,6 @@ Phases of the Moon: [WDisseny](http://www.wdisseny.com/)
 
 _Future updates_
 
+- As you mouse over days show more information about the weather (humidity, uvi, etc.)
 - Move the sunrise and sunset to correspond to the length of the day
+- As you hover over the days, change the sunrise and sunset times and move the suns

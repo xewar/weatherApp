@@ -7,10 +7,10 @@ renderMoons();
 
 let form = document.querySelector('form');
 
+//Finds the lat/lon from the user input using the geocoding API
 let getLatLon = async e => {
   e.preventDefault();
   let placeName = form.querySelector('input').value;
-  //Geocoding API
   try {
     let response = await fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${placeName}&limit=1&appid=d690f17492f89e48239c79b3c0f9b19b
@@ -19,10 +19,6 @@ let getLatLon = async e => {
     );
     let responseJSON = await response.json();
     return responseJSON;
-    // //optional update with name of state as well
-    // form.querySelector(
-    //   'input'
-    // ).value = `${responseJSON[0]['name']}, ${responseJSON[0]['state']}`;
   } catch (error) {
     console.log(error);
   }
@@ -61,6 +57,7 @@ let temperatureConversion = (temp, unit) => {};
 let processWeatherData = weatherData => {
   console.log(weatherData);
   let todayData = weatherData['current'];
+  let forecast = weatherData['daily'];
 
   //add sunrise and sunset times
   let sunrise = format(new Date(todayData['sunrise'] * 1000), 'HH:mm');
@@ -69,24 +66,14 @@ let processWeatherData = weatherData => {
   sunsetTime.textContent = sunset;
 
   //loop and add temperature data to DOM
-  // for (let i = 0, i <5, i++){
-  //   let date = format(new Date(todayData['dt'] * 1000), 'EEEE, MMMM d')
-
-  // }
-  // let todaysDate = format(new Date(todayData['dt'] * 1000), 'EEEE, MMMM d');
-  // let todaysDateDiv = todayDiv.querySelector('.date');
-  // todaysDateDiv.textContent = todaysDate;
-
-  // let temp0 = Math.round(todayData['temp'], 0);
-  // let description0 = todayData['weather'][0]['description'];
-  // todayDiv.querySelector('.temperature').textContent = temp0 + '°';
-  // todayDiv.querySelector('.description').textContent = description0;
-
-  // //tomorrow
-  // let nextData = weatherData['daily'];
-  // let tomorrowsDate = format(
-  //   new Date(nextData[1]['dt'] * 1000),
-  //   'EEEE, MMMM d'
-  // );
-  // let temp1 = nextData[1]['temp']['day'];
+  for (let i = 0; i < 5; i++) {
+    let date = format(new Date(forecast[i]['dt'] * 1000), 'EEEE, MMMM d');
+    let temp = forecast[i]['temp']['day']; //temperature is the 'day' temperature, rather than current, high, low, etc.
+    temp = Math.round(temp, 0);
+    let description = forecast[i]['weather'][0]['description'];
+    let dayDiv = document.getElementById(`day${i}`);
+    dayDiv.querySelector('.date').textContent = date;
+    dayDiv.querySelector('.temperature').textContent = temp;
+    dayDiv.querySelector('.description').textContent = description;
+  }
 };
