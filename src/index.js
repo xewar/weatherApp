@@ -20,7 +20,7 @@ let populateWeather = e => {
 let getLatLon = async placeName => {
   try {
     let response = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${placeName}&limit=1&appid=d690f17492f89e48239c79b3c0f9b19b
+      `https://api.openweathermap.org/geo/1.0/direct?q=${placeName}&limit=1&appid=d690f17492f89e48239c79b3c0f9b19b
    `,
       { mode: 'cors' }
     );
