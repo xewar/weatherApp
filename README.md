@@ -1,6 +1,6 @@
 # weatherApp
 
-![alt text](https://github.com/xewar/weatherApp/src/projectThumbnail.png?raw=true)
+<img src="https://github.com/xewar/weatherApp/blob/623bbc1633a844fbcaa61767a4629da7046055f0/src/projectThumbnail.png" width="600">
 
 A minimalist weather forecasting site, featuring a five day forecast, the current phases of the moon, and the daily sunrise and sunset times. View the live project [here](https://xewar.github.io/weatherApp).
 
@@ -10,7 +10,7 @@ Practice using async and await, promises, XML HttpRequests, and APIs.
 
 _Notes_
 
-This was a fun project. I had an idea for what I wanted it to look like and made a dummy in InDesign before starting. That was the first time I'd done that and it was an easier approach than trying to iterate a design in CSS.
+This was a fun and simple project. I had an idea for what I wanted it to look like and made a dummy in InDesign before starting. That was the first time I'd done that, and it was a much easier approach than trying to iterate a design in CSS.
 
 My biggest challenge was figuring out how to add a moon phase calendar into the site. I was really happy that I was able to figure out how to integrate a tool made by someone else and also convert an XML HttpRequest to a promise, as I'd been practicing.
 
