@@ -8,9 +8,7 @@ renderMoons();
 let form = document.querySelector('form');
 
 //Finds the lat/lon from the user input using the geocoding API
-let getLatLon = async e => {
-  e.preventDefault();
-  let placeName = form.querySelector('input').value;
+let getLatLon = async placeName => {
   try {
     let response = await fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${placeName}&limit=1&appid=d690f17492f89e48239c79b3c0f9b19b
@@ -24,7 +22,9 @@ let getLatLon = async e => {
   }
 };
 let populateWeather = e => {
-  getLatLon(e)
+  e.preventDefault();
+  let placeName = form.querySelector('input').value;
+  getLatLon(placeName)
     .then(geoData => getWeatherData(geoData))
     .then(weatherData => processWeatherData(weatherData));
 };
@@ -77,3 +77,7 @@ let processWeatherData = weatherData => {
     dayDiv.querySelector('.description').textContent = description;
   }
 };
+
+getLatLon('New York')
+  .then(geoData => getWeatherData(geoData))
+  .then(weatherData => processWeatherData(weatherData));
