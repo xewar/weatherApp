@@ -15,11 +15,10 @@ body {
     to right,
     rgba(var(--tealAlter), 0.6) 0,
     rgba(var(--redAlter), 0.3) 75%,
-    rgba(var(--yellowAlter), 0.4) 98%
+    rgba(var(--yellowAlter), 0.3) 90%,
+    rgba(var(--tealAlter), 0.6) 100%
   );
   color: white;
-  width: 100vw;
-  height: 100vh;
 }
 
 input {
@@ -40,7 +39,6 @@ input:focus {
 }
 input:focus::placeholder {
   color: transparent;
-  color: rgba(var(--blueAlter), 0.45);
 }
 button {
   border: none;
@@ -84,7 +82,46 @@ button {
   font-size: 1.1em;
   color: rgba(var(--blueAlter), 0.35);
 }
+/*Mobile Styles */
+@media only screen and (max-width: 550px) {
+  body {
+    display: grid;
+    grid-template-rows: 200px max-content;
+    gap: 2em;
+    align-items: flex-end;
+    width: 100vw;
+    height: 100vh;
+  }
+  .top {
+    grid-row: 2;
+  }
+  .bottom {
+    grid-row: 1;
+  }
+  .sunrise,
+  .moonrise {
+    grid-row: 1;
+    height: 210px;
+    width: 210px;
+    top: -105px;
+    border-radius: 100%;
+    opacity: 45%;
+    background: rgba(var(--yellowAlter), 0.2);
+    /* background: rgba(255, 255, 255, 0.3); */
+    position: absolute;
+  }
+  .sunriseTime {
+    position: absolute;
+    top: 120px;
+    left: 20px;
+  }
 
+  .sunsetTime {
+    position: absolute;
+    top: 120px;
+    left: 145px;
+  }
+}
 /* Desktop Styles */
 @media only screen and (min-width: 550px) {
   body {
