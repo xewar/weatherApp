@@ -1,6 +1,8 @@
 # weatherApp
+<a href="https://xewar.github.io/weatherApp">
+<img src="https://github.com/xewar/weatherApp/blob/623bbc1633a844fbcaa61767a4629da7046055f0/src/projectThumbnail.png" width="600"></a>
 
-<img src="https://github.com/xewar/weatherApp/blob/623bbc1633a844fbcaa61767a4629da7046055f0/src/projectThumbnail.png" width="600">
+
 
 A minimalist weather forecasting site, featuring a five day forecast, the current phases of the moon, and the daily sunrise and sunset times. View the live project [here](https://xewar.github.io/weatherApp).
 
